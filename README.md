@@ -9,37 +9,45 @@ The tool also provides useful information such as GC content and highlights rare
 ## Input and Output
 
 - **Input:**  
-  - A DNA sequence file (FASTA or plain text format) and a choice of target organism for codon optimization.
+  - A DNA sequence file (FASTA or plain text format) and a target organism's NCBI Taxonomy ID for codon optimization.
 
-- **Output:**  
-  - An optimized DNA sequence with codons adjusted to the target organism’s preferences.  
-  - Summary statistics including GC content and rare codon warnings.  
-  - Visual charts showing codon usage before and after optimization.  
+- **Output:**   
+  - An optimized DNA sequence with codons adjusted to the target organism’s preferences (FASTA format).  
+  - Summary statistics including GC content, rare codon warnings, and codon frequencies (text file).  
+  - Visual charts (PNG) showing codon usage before and after optimization.  
 
 ## Technical details
 
-- Written in Python, using libraries such as Biopython for sequence parsing and Matplotlib or Plotly for visualization.  
-- Runs via command line interface (CLI) or simple graphical interface (optional).  
-- Input files are read locally; outputs saved to a project folder.  
+- Written in Python, using libraries such as Biopython for sequence parsing and Matplotlib for visualization.
+- Runs via command line interface (CLI).
+- Input files are read locally; outputs saved to a project folder.
 - Dependencies can be installed via `pip install -r requirements.txt`.
 
 ## How to download, install, and run
 
-1. Clone the repository:  
+1. Clone the repository:
    ```bash
    git clone https://github.com/leehalevi/Codon-Usage-Analyzer-Optimizer.git
    cd Codon-Usage-Analyzer-Optimizer
-
+   ```
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
-
-3. Run the program with an example command:
+   ```
+3. Run the program with command-line arguments:
    ```bash
-   python codon_optimizer.py --input mygene.fasta --organism ecoli --output optimized_gene.fasta
+   python codon_optimizer.py --input mygene.fasta --taxid 316407 --output optimized_gene.fasta --stats gene_stats.txt
+   ```
+   - `--input`: Input DNA sequence file (FASTA or plain text)
+   - `--taxid`: Target organism NCBI Taxonomy ID (see list below)
+   - `--output`: Output file for optimized sequence (default: optimized_sequence.fasta)
+   - `--stats`: Output file for statistics (default: sequence_stats.txt)
 
----
+The following NCBI Taxonomy IDs are supported out-of-the-box:
 
-*This project was created as part of the course Basic Programming Skills in Python at the Weizmann Institute of Science.*
-
+- Bacillus subtilis: 1423
+- Caenorhabditis elegans: 6239
+- Drosophila melanogaster: 7227
+- Escherichia coli: 316407
+- Gallus gallus (chicken): 9031
 
