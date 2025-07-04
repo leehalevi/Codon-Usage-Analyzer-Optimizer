@@ -111,17 +111,18 @@ def main():
     parser = argparse.ArgumentParser(description="Codon Usage Analyzer and Optimizer")
     parser.add_argument('--input', required=True, help='Input DNA sequence file (FASTA or plain text)')
     parser.add_argument('--taxid', required=True, type=int, help='Target organism NCBI Taxonomy ID')
-    parser.add_argument('--output', default='results/optimized_sequence.fasta', help='Output file for optimized sequence (FASTA)')
-    parser.add_argument('--stats', default='results/sequence_stats.txt', help='Output file for statistics')
+    parser.add_argument('--output', default='optimized_sequence.fasta', help='Output file for optimized sequence (FASTA)')
+    parser.add_argument('--stats', default='sequence_stats.txt', help='Output file for statistics')
     args = parser.parse_args()
 
     input_file = args.input
     taxid = args.taxid
-    output_file = args.output
-    stats_file = args.stats
 
-    # Ensure results directory exists
-    os.makedirs('results', exist_ok=True)
+    results_dir = "results"
+    os.makedirs(results_dir, exist_ok=True)
+
+    output_file = os.path.join(results_dir, os.path.basename(args.output))
+    stats_file = os.path.join(results_dir, os.path.basename(args.stats))
 
     sequence = read_sequence(input_file)
     codon_freqs = count_codon_frequencies(sequence)
@@ -155,20 +156,20 @@ def main():
         f.write(f"Codon frequencies: {codon_freqs}\n")
 
     # Save gene_stats and optimized_gene in results directory
-    with open("results/gene_stats.txt", "w") as f:
+    with open(os.path.join(results_dir, "gene_stats.txt"), "w") as f:
         f.write(f"GC content: {gc_content:.2f}%\n")
         f.write(f"Rare codons: {rare_codons}\n")
         f.write(f"Codon frequencies: {codon_freqs}\n")
-    with open("results/optimized_gene.fasta", "w") as f:
+    with open(os.path.join(results_dir, "optimized_gene.fasta"), "w") as f:
         f.write(">optimized_gene\n")
         for i in range(0, len(optimized_seq), 60):
             f.write(optimized_seq[i:i+60] + "\n")
 
     # Visualization
-    plot_codon_usage(codon_freqs, "Original Codon Usage", "results/original_codon_usage.png")
+    plot_codon_usage(codon_freqs, "Original Codon Usage", os.path.join(results_dir, "original_codon_usage.png"))
     optimized_freqs = count_codon_frequencies(optimized_seq)
-    plot_codon_usage(optimized_freqs, "Optimized Codon Usage", "results/optimized_codon_usage.png")
-    print("Codon usage plots saved as results/original_codon_usage.png and results/optimized_codon_usage.png")
+    plot_codon_usage(optimized_freqs, "Optimized Codon Usage", os.path.join(results_dir, "optimized_codon_usage.png"))
+    print(f"Codon usage plots saved as {os.path.join(results_dir, 'original_codon_usage.png')} and {os.path.join(results_dir, 'optimized_codon_usage.png')}")
 
 if __name__ == '__main__':
     main()

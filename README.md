@@ -36,12 +36,14 @@ The tool also provides useful information such as GC content and highlights rare
    ```
 3. Run the program with command-line arguments:
    ```bash
-   python codon_optimizer.py --input mygene.fasta --taxid 316407 --output optimized_gene.fasta --stats gene_stats.txt
+   python codon_optimizer.py --input mygene.fasta --taxid 316407
    ```
+   All output files will be saved in the `results` directory.
+
    - `--input`: Input DNA sequence file (FASTA or plain text)
    - `--taxid`: Target organism NCBI Taxonomy ID (see list below)
-   - `--output`: Output file for optimized sequence (default: optimized_sequence.fasta)
-   - `--stats`: Output file for statistics (default: sequence_stats.txt)
+   - `--output`: Output file for optimized sequence (default: optimized_sequence.fasta). This will be saved in the `results` directory.
+   - `--stats`: Output file for statistics (default: sequence_stats.txt). This will be saved in the `results` directory.
 
 The following NCBI Taxonomy IDs are supported out-of-the-box:
 
