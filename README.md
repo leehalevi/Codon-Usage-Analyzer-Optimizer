@@ -1,5 +1,7 @@
 # Codon Usage Analyzer and Optimizer
 
+This project is the final project in the Basic Programming Skills course at the Weizmann Institute of Science.
+
 ## What does this project do?
 
 This project is a tool that analyzes the codon usage in a DNA sequence and suggests an optimized version based on the preferred codon usage of a target organism (e.g., *E. coli* or yeast). It helps improve gene expression by recommending codon changes that do not alter the protein but make the gene easier for the organism to translate efficiently.
